@@ -97,11 +97,18 @@ H2OFFT-Sx64.efi isflash.bin\n' > "$esp_root/startup.nsh"
 	chmod +x "$linux_pkg/flash.sh"
 }
 
+release() {
+	for dir in "$esp_root" "$usb_root" "$linux_pkg"; do
+		zip -r "$dir.zip" "$dir"
+	done
+}
+
 
 download
 check
 extract
 package
+release
 
 printf '\n' >&2
 printf \
