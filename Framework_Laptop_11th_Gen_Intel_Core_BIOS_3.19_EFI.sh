@@ -63,7 +63,7 @@ package() {
 	cp -r "fw11_3_17_efi/efi/" "$efi_root"
 
 	printf '[+] Creating startup file\n' >&2
-	echo 'H2OFFT-Sx65.efi isflash.bin' > "$efi_root/startup.nsh"
+	echo 'H2OFFT-Sx64.efi isflash.bin' > "$efi_root/startup.nsh"
 
 	# The flash binary contains another copy of the platform.inf and
 	# also instructs the FFT to run the FWUpdLcl tool to update the CSME.
