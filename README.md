@@ -3,6 +3,7 @@
 This script collects the official 3.19 BIOS and 15.0.42 CSME,
 as well as an **untrusted** CSME Updater from intel and repackages
 the bundle to flash the firmware on non-Windows systems.
+You can skip the CSME update if you do not trust those files.
 
 ## Usage
 
@@ -15,18 +16,26 @@ extract them and package them into the directory `efi_root`.
 
 ## Updating the Firmware
 
-### UEFI Shell Method
+**Warning:**
+As mentioned earlier, the updater, by defaults, runs untrusted binaries to update the CSME.
+Do so at your own risk.
+You can skip running the CSME update by stubbing the `FWUpdLcl.efi` as explained below.
+
+### UEFI Method \#1: USB Drive
 
 Move all files from `efi_root` on a FAT formatted USB drive and boot it.
 The installer should start automatically and update both the BIOS to 3.19 and the CSME.
 
+**Optionally skip CSME update:**
 If you do not trust the CSME Updater `FWUpdLcl.efi` contained in here,
 just overwrite it with any other binary such as the BIOS Updater `H2OFFT-Sx64.efi`.
 This will allow the BIOS Update to continue but the CSME Update will be skipped
 (the updater only checks for existence of the file).
 
-**Without USB Drive:**  
-If you do not have USB drive with you, you can use the EFI System Partition and EFI Shell.
+**Without USB Drive:** If you do not have USB drive with you,
+you can use the EFI System Partition and EFI Shell as shown in the next method.
+
+### UEFI Method \#2: ESP
 
 1. Place the files onto your EFI System Partition (ESP)
 2. Download and extract an EFI Shell, e.g., from the ArchLinux repos:
@@ -59,6 +68,9 @@ If you do not have USB drive with you, you can use the EFI System Partition and 
    ```
    This will start the update process.
 
+**Optionally skip CSME update:**
+As above, you can skip the CSME update by replacing the `FWUpdLc.efi`.
+
 ### Linux Method (CSME Update Only)
 
 The CSME System Tools also contain a `FWUpdLcl` file for Linux which can be run just like that:
@@ -78,7 +90,9 @@ Sending the update image to FW for verification:  [ COMPLETE ]
 FW Update:  [ 100% (/)] Do not Interrupt
 ```
 
-This won't update the BIOS to 3.19 since this requires a kernel driver such as:
-https://github.com/tomreyn/isfl
-as well as the H2OFFT-Lx64 binary such as:
+**Note:**
+This won't update the BIOS to 3.19 since this would require a Linux H2O BIOS (H2OFFT-Lx64) updater.
+While this exists from 3rd party sites, it's not included here:
 https://www.udoo.org/docs-x86/Advanced_Topics/UEFI_update.html
+For the updater to work, additionally a kernel driver is required:
+https://github.com/tomreyn/isfl
