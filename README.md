@@ -12,7 +12,11 @@ Run the packaging script:
 $ ./Framework_Laptop_11th_Gen_Intel_Core_BIOS_3.19_EFI.sh`
 ```
 It will download and check the files against known signatures,
-extract them and package them into the directory `efi_root`.
+extract them and package them into the three directories:
+
+1. `usb_root`: Copy these files on a FAT formatted USB drive and boot it (UEFI Method \#1)
+2. `esp_root`: Copy these files onto your ESP and flash through the Shell (UEFI Method \#2)
+3. `linux_pkg`: Run the CSME Linux updater (Linux Updater Method, no BIOS update!)
 
 ## Updating the Firmware
 
@@ -23,8 +27,8 @@ You can skip running the CSME update by stubbing the `FWUpdLcl.efi` as explained
 
 ### UEFI Method \#1: USB Drive
 
-Move all files from `efi_root` on a FAT formatted USB drive and boot it.
-The installer should start automatically and update both the BIOS to 3.19 and the CSME.
+1. Move all files from `usb_root` on a FAT formatted USB drive and boot it.
+2. The installer should start automatically and update both the BIOS to 3.19 and the CSME.
 
 **Optionally skip CSME update:**
 If you do not trust the CSME Updater `FWUpdLcl.efi` contained in here,
@@ -37,7 +41,7 @@ you can use the EFI System Partition and EFI Shell as shown in the next method.
 
 ### UEFI Method \#2: ESP
 
-1. Place the files onto your EFI System Partition (ESP)
+1. Place the files from `efi_root` onto your EFI System Partition (ESP)
 2. Download and extract an EFI Shell, e.g., from the ArchLinux repos:
    https://archlinux.org/packages/extra/any/edk2-shell/download/
 3. Copy the Shell binary to the ESP as well, next to the others:
@@ -73,10 +77,10 @@ As above, you can skip the CSME update by replacing the `FWUpdLc.efi`.
 
 ### Linux Method (CSME Update Only)
 
-The CSME System Tools also contain a `FWUpdLcl` file for Linux which can be run just like that:
+The CSME System Tools also contain a `FWUpdLcl` file for Linux which can be run from a running system
+and can be found in the `linux_pkg` directory. Run the `flash.sh` script:
 
-```
-$ sudo "CSME System Tools v15.0 r15/FWUpdate/LINUX64/FWUpdLcl" -F fw11_3_19_win/FWUpdate.bin
+```$ sudo ./flash.sh
 Intel (R) FW Update Version: 15.0.35.1951
 Copyright (C) 2005 - 2021, Intel Corporation. All rights reserved.
 
