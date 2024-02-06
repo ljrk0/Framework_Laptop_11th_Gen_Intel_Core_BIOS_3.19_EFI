@@ -1,5 +1,7 @@
 #! /bin/sh
 
+set -e
+
 dlurl='https://downloads.frame.work/bios'
 # This is the 3.17 EFI update containing:
 #  * H2OFFT-Sx64.efi: The H2O Firmware Flash Tool for the UEFI Shell x64
