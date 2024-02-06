@@ -51,10 +51,11 @@ If you do not have USB drive with you, you can use the EFI System Partition and 
    }
    ```
 5. Run `grub2-mkconfig -o /etc/grub2-efi.cfg` and reboot
-6. In GRUB, select "UEFI Shell", and use the following commands:
+6. In GRUB, select "UEFI Shell", and first change to the File System 0 volume `FS0` (the ESP),
+   then run the H2O Flash Tool:
    ```
    Shell> FS0:
-   FS0:\> .\shellx64.efi .\isflash.bin
+   FS0:\> .\H2OFFT-Sx64.efi .\isflash.bin
    ```
    This will start the update process.
 
