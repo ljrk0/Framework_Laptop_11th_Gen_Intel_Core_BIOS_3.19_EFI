@@ -1,3 +1,9 @@
+---
+
+Framework now publishes the appropriate binaries themselves, so there's no need for this anymore.
+
+---
+
 # Framework 11th Gen Intel BIOS 3.19 & CSME 15.0.42 EFI Updater
 
 This script collects the official 3.19 BIOS and 15.0.42 CSME,
